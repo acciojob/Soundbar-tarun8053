@@ -1,33 +1,35 @@
+// Cypress expects EXACTLY 6 sounds
 const sounds = [
-  "sound1",
-  "sound2",
-  "sound3",
-  "sound4",
-  "sound5",
-  "sound6"
+  "audio1",
+  "audio2",
+  "audio3",
+  "audio4",
+  "audio5",
+  "audio6"
 ];
 
+// Create the 6 buttons
 sounds.forEach(sound => {
   const btn = document.createElement("button");
   btn.classList.add("btn");
   btn.innerText = sound;
 
   btn.addEventListener("click", () => {
-    stopSound();
-    const audio = document.createElement("audio");
-    audio.src = `sounds/${sound}.mp3`; // OR .wav if your files are wav
+    stopAudio();
+    const audio = new Audio(`sounds/${sound}.mp3`);
     audio.play();
-    window.current = audio;
+    window.currentSound = audio; // save reference
   });
 
   document.getElementById("buttons").appendChild(btn);
 });
 
-document.querySelector(".stop").addEventListener("click", stopSound);
+// Stop button
+document.querySelector(".stop").addEventListener("click", stopAudio);
 
-function stopSound() {
-  if (window.current) {
-    window.current.pause();
-    window.current.currentTime = 0;
+function stopAudio() {
+  if (window.currentSound) {
+    window.currentSound.pause();
+    window.currentSound.currentTime = 0;
   }
 }
