@@ -1,32 +1,33 @@
-//your JS code here. If required.
-// List of sound files
-const sounds = ["clap", "kick", "snare", "tom", "boom"];
+const sounds = [
+  "sound1",
+  "sound2",
+  "sound3",
+  "sound4",
+  "sound5",
+  "sound6"
+];
 
-// Create buttons dynamically
 sounds.forEach(sound => {
-    const btn = document.createElement("button");
-    btn.classList.add("btn");
-    btn.innerText = sound;
+  const btn = document.createElement("button");
+  btn.classList.add("btn");
+  btn.innerText = sound;
 
-    btn.addEventListener("click", () => {
-        stopSounds();
-        const audio = document.createElement("audio");
-        audio.src = `sounds/${sound}.wav`;
-        audio.play();
-        window.currentAudio = audio; // save last playing audio
-    });
+  btn.addEventListener("click", () => {
+    stopSound();
+    const audio = document.createElement("audio");
+    audio.src = `sounds/${sound}.mp3`; // OR .wav if your files are wav
+    audio.play();
+    window.current = audio;
+  });
 
-    document.getElementById("buttons").appendChild(btn);
+  document.getElementById("buttons").appendChild(btn);
 });
 
-// STOP button functionality
-document.querySelector(".stop").addEventListener("click", () => {
-    stopSounds();
-});
+document.querySelector(".stop").addEventListener("click", stopSound);
 
-function stopSounds() {
-    if (window.currentAudio) {
-        window.currentAudio.pause();
-        window.currentAudio.currentTime = 0;
-    }
+function stopSound() {
+  if (window.current) {
+    window.current.pause();
+    window.current.currentTime = 0;
+  }
 }
