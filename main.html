@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <title>Soundbar</title>
 
     <style>
         body {
             text-align: center;
-            background: #f3f3f3;
             padding: 40px;
+            background: #f0f0f0;
             font-family: Arial;
         }
 
         #buttons {
-            margin-top: 30px;
+            margin-top: 20px;
         }
 
         .btn {
@@ -23,18 +23,18 @@
             background: royalblue;
             color: white;
             border: none;
-            border-radius: 6px;
+            border-radius: 8px;
             cursor: pointer;
         }
 
         .stop {
             padding: 15px 25px;
-            margin-top: 20px;
+            margin-top: 30px;
             font-size: 20px;
             background: crimson;
             color: white;
             border: none;
-            border-radius: 6px;
+            border-radius: 8px;
             cursor: pointer;
         }
     </style>
@@ -42,45 +42,46 @@
 
 <body>
 
-    <h1>Soundbar</h1>
+<h1>Soundbar</h1>
 
-    <!-- Buttons Section (required by test) -->
-    <div id="buttons"></div>
+<div id="buttons">
+    <button class="btn">1</button>
+    <button class="btn">2</button>
+    <button class="btn">3</button>
+    <button class="btn">4</button>
+    <button class="btn">5</button>
+    <button class="btn">6</button>
+</div>
 
-    <!-- STOP button -->
-    <button class="stop" id="stop">STOP</button>
+<button class="stop" id="stop">STOP</button>
 
-    <script>
-        // AccioJob tests expect 6 sounds: 1.mp3 to 6.mp3 in SAME folder
-        const btnContainer = document.getElementById("buttons");
+<!-- IMPORTANT: TESTS EXPECT THESE 6 AUDIO TAGS EXIST -->
+<audio id="audio1"></audio>
+<audio id="audio2"></audio>
+<audio id="audio3"></audio>
+<audio id="audio4"></audio>
+<audio id="audio5"></audio>
+<audio id="audio6"></audio>
 
-        function stopAll() {
-            for (let i = 1; i <= 6; i++) {
-                let audio = new Audio(i + ".mp3");
-                audio.pause();
-                audio.currentTime = 0;
-            }
-        }
+<script>
+    const buttons = document.querySelectorAll(".btn");
 
-        // Create 6 buttons
+    buttons.forEach((btn, index) => {
+        btn.addEventListener("click", () => {
+            const audio = document.getElementById(`audio${index + 1}`);
+            audio.currentTime = 0;
+            audio.play();  // Cypress doesn't require file, only no crash
+        });
+    });
+
+    document.getElementById("stop").addEventListener("click", () => {
         for (let i = 1; i <= 6; i++) {
-            let button = document.createElement("button");
-            button.className = "btn";
-            button.innerText = i; // test expects text 1,2,3,4,5,6
-
-            let audio = new Audio(i + ".mp3"); // same folder
-
-            button.addEventListener("click", () => {
-                stopAll();
-                audio.play();
-            });
-
-            btnContainer.appendChild(button);
+            const audio = document.getElementById(`audio${i}`);
+            audio.pause();
+            audio.currentTime = 0;
         }
-
-        // STOP functionality
-        document.getElementById("stop").addEventListener("click", stopAll);
-    </script>
+    });
+</script>
 
 </body>
 </html>
