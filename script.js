@@ -1,46 +1,35 @@
-// List of sound file names (without folder)
-const sounds = [
-  "clap",
-  "kick",
-  "snare",
-  "hihat",
-  "tom"
-];
+// List of sound files present in SAME folder
+const sounds = ["clap", "kick", "snare", "hihat", "tom"];
 
-// Get buttons container
+// Reference to buttons section
 const btnContainer = document.getElementById("buttons");
 
-// Create the audio + button for each sound
+// Create a button for each sound
 sounds.forEach(sound => {
-  const btn = document.createElement("button");
-  btn.classList.add("btn");
-  btn.innerText = sound.toUpperCase();
+    const button = document.createElement("button");
+    button.classList.add("btn");
+    button.innerText = sound.toUpperCase();
 
-  // On click → play sound
-  btn.addEventListener("click", () => {
-    stopAll(); // stop any currently playing sound
-    const audio = document.getElementById(sound);
-    audio.play();
-  });
+    // Create audio object
+    const audio = new Audio(`${sound}.mp3`);
 
-  // Create <audio> tag
-  const audio = document.createElement("audio");
-  audio.id = sound;
-  audio.src = `sounds/${sound}.mp3`;
+    // play on click
+    button.addEventListener("click", () => {
+        stopAll();
+        audio.play();
+    });
 
-  // Add button & audio to page
-  btnContainer.appendChild(btn);
-  document.body.appendChild(audio);
+    btnContainer.appendChild(button);
 });
 
-// STOP BUTTON
+// STOP functionality
 document.getElementById("stop").addEventListener("click", stopAll);
 
-// Function to stop ALL sounds
+// Stops all currently playing sounds
 function stopAll() {
-  sounds.forEach(sound => {
-    const audio = document.getElementById(sound);
-    audio.pause();
-    audio.currentTime = 0;
-  });
+    sounds.forEach(sound => {
+        const audio = new Audio(`${sound}.mp3`);
+        audio.pause();
+        audio.currentTime = 0;
+    });
 }
