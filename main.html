@@ -55,23 +55,26 @@
 
 
 <script>
-    const buttons = document.querySelectorAll(".btn");
+	const buttons = document.querySelectorAll('.btn');
+const stopButton = document.querySelector('.stop');
+let currentAudio = null;
 
-    buttons.forEach((btn, index) => {
-        btn.addEventListener("click", () => {
-            const audio = document.getElementById(`audio${index + 1}`);
-            audio.currentTime = 0;
-            audio.play();  // Cypress doesn't require file, only no crash
-        });
-    });
-
-    document.getElementById("stop").addEventListener("click", () => {
-        for (let i = 1; i <= 6; i++) {
-            const audio = document.getElementById(`audio${i}`);
-            audio.pause();
-            audio.currentTime = 0;
+buttons.forEach(button => {
+    button.addEventListener('click', () => {
+        const sound = button.getAttribute('data-sound');
+        if (currentAudio) {
+            currentAudio.pause();
         }
+        currentAudio = new Audio(`sounds/${sound}.mp3`);
+        currentAudio.play();
     });
+});
+
+stopButton.addEventListener('click', () => {
+    if (currentAudio) {
+        currentAudio.pause();
+    }
+});
 </script>
 
 </body>
