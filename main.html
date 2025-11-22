@@ -45,23 +45,14 @@
 <h1>Soundbar</h1>
 
 <div id="buttons">
-    <button class="btn">1</button>
-    <button class="btn">2</button>
-    <button class="btn">3</button>
-    <button class="btn">4</button>
-    <button class="btn">5</button>
-    <button class="btn">6</button>
+    <button class="btn" data-sound="sound1">Sound 1</button>
+    <button class="btn" data-sound="sound2">Sound 2</button>
+    <button class="btn" data-sound="sound3">Sound 3</button>
+    <button class="stop">Stop</button>
 </div>
 
-<button class="stop" id="stop">STOP</button>
 
-<!-- IMPORTANT: TESTS EXPECT THESE 6 AUDIO TAGS EXIST -->
-<audio id="audio1"></audio>
-<audio id="audio2"></audio>
-<audio id="audio3"></audio>
-<audio id="audio4"></audio>
-<audio id="audio5"></audio>
-<audio id="audio6"></audio>
+
 
 <script>
     const buttons = document.querySelectorAll(".btn");
