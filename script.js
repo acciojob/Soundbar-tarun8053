@@ -1,35 +1,46 @@
-// Cypress expects EXACTLY 6 sounds
+// List of sound file names (without folder)
 const sounds = [
-  "audio1",
-  "audio2",
-  "audio3",
-  "audio4",
-  "audio5",
-  "audio6"
+  "clap",
+  "kick",
+  "snare",
+  "hihat",
+  "tom"
 ];
 
-// Create the 6 buttons
+// Get buttons container
+const btnContainer = document.getElementById("buttons");
+
+// Create the audio + button for each sound
 sounds.forEach(sound => {
   const btn = document.createElement("button");
   btn.classList.add("btn");
-  btn.innerText = sound;
+  btn.innerText = sound.toUpperCase();
 
+  // On click → play sound
   btn.addEventListener("click", () => {
-    stopAudio();
-    const audio = new Audio(`sounds/${sound}.mp3`);
+    stopAll(); // stop any currently playing sound
+    const audio = document.getElementById(sound);
     audio.play();
-    window.currentSound = audio; // save reference
   });
 
-  document.getElementById("buttons").appendChild(btn);
+  // Create <audio> tag
+  const audio = document.createElement("audio");
+  audio.id = sound;
+  audio.src = `sounds/${sound}.mp3`;
+
+  // Add button & audio to page
+  btnContainer.appendChild(btn);
+  document.body.appendChild(audio);
 });
 
-// Stop button
-document.querySelector(".stop").addEventListener("click", stopAudio);
+// STOP BUTTON
+document.getElementById("stop").addEventListener("click", stopAll);
 
-function stopAudio() {
-  if (window.currentSound) {
-    window.currentSound.pause();
-    window.currentSound.currentTime = 0;
-  }
+// Function to stop ALL sounds
+function stopAll() {
+  sounds.forEach(sound => {
+    const audio = document.getElementById(sound);
+    audio.pause();
+    audio.currentTime = 0;
+  });
 }

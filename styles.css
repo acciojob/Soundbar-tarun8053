@@ -1,44 +1,40 @@
-/*  your css code here. If applicable */
 body {
-    text-align: center;
-    background: #222;
-    color: white;
-    font-family: Arial, sans-serif;
+  text-align: center;
+  background: #efefef;
+  font-family: Arial, sans-serif;
+  padding: 30px;
 }
 
 #buttons {
-    margin: 20px auto;
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    flex-wrap: wrap;
+  margin-top: 30px;
 }
 
 .btn {
-    padding: 15px 25px;
-    font-size: 18px;
-    background: #ff9800;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    color: white;
+  padding: 15px 25px;
+  margin: 10px;
+  border: none;
+  background: royalblue;
+  color: white;
+  font-size: 18px;
+  border-radius: 6px;
+  cursor: pointer;
 }
 
 .btn:hover {
-    background: #e68900;
+  background: dodgerblue;
 }
 
 .stop {
-    margin-top: 20px;
-    padding: 15px 40px;
-    font-size: 20px;
-    border: none;
-    background: red;
-    color: white;
-    border-radius: 5px;
-    cursor: pointer;
+  padding: 15px 25px;
+  background: crimson;
+  color: white;
+  border: none;
+  font-size: 18px;
+  margin-top: 25px;
+  border-radius: 6px;
+  cursor: pointer;
 }
 
 .stop:hover {
-    background: darkred;
+  background: red;
 }
