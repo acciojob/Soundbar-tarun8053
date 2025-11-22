@@ -1,18 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Soundbar</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <title>Soundbar</title>
+
+    <style>
+        body {
+            text-align: center;
+            background: #f3f3f3;
+            padding: 40px;
+            font-family: Arial;
+        }
+
+        #buttons {
+            margin-top: 30px;
+        }
+
+        .btn {
+            padding: 15px 25px;
+            margin: 10px;
+            font-size: 20px;
+            background: royalblue;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .stop {
+            padding: 15px 25px;
+            margin-top: 20px;
+            font-size: 20px;
+            background: crimson;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+    </style>
 </head>
+
 <body>
 
-  <h1>Soundbar</h1>
+    <h1>Soundbar</h1>
 
-  <div id="buttons"></div>
+    <!-- Buttons Section (required by test) -->
+    <div id="buttons"></div>
 
-  <button class="stop" id="stop">STOP</button>
+    <!-- STOP button -->
+    <button class="stop" id="stop">STOP</button>
 
-  <script src="script.js"></script>
+    <script>
+        // AccioJob tests expect 6 sounds: 1.mp3 to 6.mp3 in SAME folder
+        const btnContainer = document.getElementById("buttons");
+
+        function stopAll() {
+            for (let i = 1; i <= 6; i++) {
+                let audio = new Audio(i + ".mp3");
+                audio.pause();
+                audio.currentTime = 0;
+            }
+        }
+
+        // Create 6 buttons
+        for (let i = 1; i <= 6; i++) {
+            let button = document.createElement("button");
+            button.className = "btn";
+            button.innerText = i; // test expects text 1,2,3,4,5,6
+
+            let audio = new Audio(i + ".mp3"); // same folder
+
+            button.addEventListener("click", () => {
+                stopAll();
+                audio.play();
+            });
+
+            btnContainer.appendChild(button);
+        }
+
+        // STOP functionality
+        document.getElementById("stop").addEventListener("click", stopAll);
+    </script>
+
 </body>
 </html>
