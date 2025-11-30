@@ -1,81 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <title>Soundbar</title>
-
-    <style>
-        body {
-            text-align: center;
-            padding: 40px;
-            background: #f0f0f0;
-            font-family: Arial;
-        }
-
-        #buttons {
-            margin-top: 20px;
-        }
-
-        .btn {
-            padding: 15px 25px;
-            margin: 10px;
-            font-size: 20px;
-            background: royalblue;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-        }
-
-        .stop {
-            padding: 15px 25px;
-            margin-top: 30px;
-            font-size: 20px;
-            background: crimson;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-        }
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Sound Player</title>
 </head>
-
 <body>
 
-<h1>Soundbar</h1>
+    <h1>Sound Player</h1>
 
-<div id="buttons">
-    <button class="btn" data-sound="sound1">Sound 1</button>
-    <button class="btn" data-sound="sound2">Sound 2</button>
-    <button class="btn" data-sound="sound3">Sound 3</button>
-    <button class="stop">Stop</button>
-</div>
+    <!-- Required section -->
+    <div id="buttons"></div>
 
-
-
-
-<script>
-	const buttons = document.querySelectorAll('.btn');
-const stopButton = document.querySelector('.stop');
-let currentAudio = null;
-
-buttons.forEach(button => {
-    button.addEventListener('click', () => {
-        const sound = button.getAttribute('data-sound');
-        if (currentAudio) {
-            currentAudio.pause();
-        }
-        currentAudio = new Audio(`sounds/${sound}.mp3`);
-        currentAudio.play();
-    });
-});
-
-stopButton.addEventListener('click', () => {
-    if (currentAudio) {
-        currentAudio.pause();
-    }
-});
-</script>
-
+    <script src="script.js"></script>
 </body>
 </html>
