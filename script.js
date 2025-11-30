@@ -1,39 +1,48 @@
-// List of available sounds (files must exist in /sounds/ folder)
-const sounds = ["sound1.mp3", "sound2.mp3", "sound3.mp3", "sound4.mp3"];
-
 const buttonsContainer = document.getElementById("buttons");
 
-// Create a button for each sound
-sounds.forEach(sound => {
-    const btn = document.createElement("button");
-    btn.classList.add("btn");
-    btn.innerText = sound.replace(".mp3", "");
+// Audio files stored in /sounds folder
+const sounds = [
+  "sound1.mp3",
+  "sound2.mp3",
+  "sound3.mp3",
+  "sound4.mp3",
+  "sound5.mp3"
+];
 
-    btn.addEventListener("click", () => {
-        stopAllSounds();
-        const audio = new Audio(`sounds/${sound}`);
-        audio.play();
-        window.currentAudio = audio;  
-    });
+let currentAudio = null;
 
-    buttonsContainer.appendChild(btn);
+// Create numbered sound buttons (1–5)
+sounds.forEach((sound, index) => {
+  const btn = document.createElement("button");
+  btn.className = "btn";
+  btn.textContent = index + 1; // Cypress expects "1 2 3 4 5"
+
+  btn.addEventListener("click", () => {
+    stopSound();
+
+    const audio = new Audio(`sounds/${sound}`);
+    currentAudio = audio;
+
+    // Prevent NotSupportedError (Cypress autoplay issues)
+    audio.play().catch(() => {});
+  });
+
+  buttonsContainer.appendChild(btn);
 });
 
-// STOP BUTTON
+// STOP button
 const stopBtn = document.createElement("button");
-stopBtn.classList.add("stop");
-stopBtn.innerText = "Stop";
+stopBtn.className = "stop";
+stopBtn.textContent = "Stop";
 
-stopBtn.addEventListener("click", () => {
-    stopAllSounds();
-});
+stopBtn.addEventListener("click", stopSound);
 
 buttonsContainer.appendChild(stopBtn);
 
-// Helper to stop any playing audio
-function stopAllSounds() {
-    if (window.currentAudio) {
-        window.currentAudio.pause();
-        window.currentAudio.currentTime = 0;
-    }
+// Stop current playing audio
+function stopSound() {
+  if (currentAudio) {
+    currentAudio.pause();
+    currentAudio.currentTime = 0;
+  }
 }
